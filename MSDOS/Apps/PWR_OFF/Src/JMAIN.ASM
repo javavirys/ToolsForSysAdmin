@@ -2,6 +2,8 @@ MAINSG	segment
 assume	cs:MAINSG
 org	100h
 MAIN	proc
+	lea	dx,str_title
+	call	write_text
 	lea	dx,str_question
 	call	write_text
 	lea	dx,str_buff
@@ -26,9 +28,6 @@ MAIN	proc
 	int	15h
 	
 	main_exit:
-		lea	dx,str_t
-		call	strlen
-		call	write_int_digit
 		mov 	ah,4Ch
 		int	20h
 	ret
@@ -39,6 +38,7 @@ include graphics.inc
 include	strutils.asm
 str_buff	db 255 dup('$')
 
+str_title	db 'Web: http://java-virys.narod.ru',0Dh,0Ah,'$'
 str_question	db 'Shutdown this PC?',0Dh,0Ah,'(yes/no):$'
 str_yes		db 'yes',0dh,'$'
 str_t		db 'hello$'
